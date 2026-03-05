@@ -27,7 +27,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Docker image
-        run: docker build -t ghcr.io/prs2304/python:v3 .
+        run: docker build -t ghcr.io/prs2304/ghcr_test:v3 .
 
       - name: Push Docker image
-        run: docker push ghcr.io/prs2304/python:v3
+        run: docker push ghcr.io/prs2304/ghcr_test:v3
