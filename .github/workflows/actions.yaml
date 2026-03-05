@@ -11,7 +11,7 @@ jobs:
             - uses: actions/checkout@v4
             - name: Build and push image to ghcr
               run: |
-                    docker login --username prs2304 --password ${{secrets.GH_PAT}} ghcr.io
+                    docker login --username prs2304 --password ${{ secrets.GH_PAT }} ghcr.io
                     docker build . --tag ghcr.io/prs2304/python:v3
                     docker push ghcr.io/prs2304/python:v3
 
