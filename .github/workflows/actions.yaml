@@ -1,19 +1,30 @@
 name: build and push to ghcr
+
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
+
 jobs:
-    build-and-push:
-        runs-on: ubuntu-latest
+  build-and-push:
+    runs-on: ubuntu-latest
 
-        steps:
-            - uses: actions/checkout@v4
-            - name: Build and push image to ghcr
-              run: |
-                    docker login --username prs2304 --password ${{ secrets.GH_PAT }} ghcr.io
-                    docker build . --tag ghcr.io/prs2304/python:v3
-                    docker push ghcr.io/prs2304/python:v3
+    permissions:
+      packages: write
+      contents: read
 
+    steps:
+      - uses: actions/checkout@v4
 
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GH_PAT }}
 
+      - name: Build image
+        run: docker build . --tag ghcr.io/prs2304/python:v3
+
+      - name: Push image
+        run: docker push ghcr.io/prs2304/python:v3
